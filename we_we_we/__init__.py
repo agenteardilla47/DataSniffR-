@@ -14,3 +14,6 @@ from .vibe_sensor import analyze_text  # noqa: F401
 __all__.append("RemixKernel")
 
 from .remix_kernel import RemixKernel  # noqa: E402
+__all__.append("ingest_logs")
+
+from .log_ingestor import ingest as ingest_logs  # noqa: E402
