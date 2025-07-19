@@ -23,3 +23,6 @@ from .task_manager import TaskManager  # noqa: E402
 __all__.append("extract_plan")
 
 from .plan_extractor import extract_to_palace as extract_plan  # noqa: E402
+__all__.extend(["QuantumBus", "consume_forever"])
+
+from .quantum_bus import QuantumBus, consume_forever  # noqa: E402
