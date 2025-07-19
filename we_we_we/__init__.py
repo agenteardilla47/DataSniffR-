@@ -20,3 +20,6 @@ from .log_ingestor import ingest as ingest_logs  # noqa: E402
 __all__.append("TaskManager")
 
 from .task_manager import TaskManager  # noqa: E402
+__all__.append("extract_plan")
+
+from .plan_extractor import extract_to_palace as extract_plan  # noqa: E402
