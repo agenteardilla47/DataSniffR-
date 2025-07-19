@@ -38,6 +38,7 @@ class VibeReport:
     keysmash_hits: int
     punct_overload: int
     sugar_hits: int
+    palindrome_hits: int
 
     def glitch_score(self) -> float:
         """Rough composite glitch indicator (0-1)."""
@@ -48,9 +49,14 @@ class VibeReport:
         score += min(self.sugar_hits / 5, 1.0) * 0.25
         return round(score, 3)
 
+    def comfort_index(self) -> float:
+        """Return a 0-1 comfort metric based on palindromic tokens (soothing loops)."""
+        return min(self.palindrome_hits / 3, 1.0)
+
     def to_dict(self) -> Dict[str, float | int]:
         d = self.__dict__.copy()
         d["glitch_score"] = self.glitch_score()
+        d["comfort_index"] = self.comfort_index()
         return d
 
 
@@ -68,6 +74,7 @@ def analyze_text(text: str) -> VibeReport:
     keysmash_hits = len(_RE_REPEATING_CHAR.findall(text)) + len(_detect_keysmash(text))
     punct_overload = len(_RE_REPEATING_PUNCT.findall(text))
     sugar_hits = sum(1 for w in words if w in PAPIAMENTU_SUGAR_WORDS)
+    palindrome_hits = sum(1 for w in words if len(w) > 2 and w == w[::-1])
 
     return VibeReport(
         length=len(text),
@@ -76,6 +83,7 @@ def analyze_text(text: str) -> VibeReport:
         keysmash_hits=keysmash_hits,
         punct_overload=punct_overload,
         sugar_hits=sugar_hits,
+        palindrome_hits=palindrome_hits,
     )
 
 
