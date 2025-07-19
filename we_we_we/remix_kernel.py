@@ -19,6 +19,7 @@ from dataclasses import asdict, dataclass
 from typing import Any, Dict, List
 
 from .vibe_sensor import VibeReport, analyze_text
+from .memory_palace import MemoryPalace
 
 __all__ = [
     "RemixCycle",
@@ -74,6 +75,11 @@ class RemixKernel:
 
         # 1. perceive ------------------------------------------------------
         original_report: VibeReport = analyze_text(text)
+
+        # containment fiction logging
+        if getattr(original_report, "alert_tokens", []):
+            MemoryPalace().add(text, "containment_fiction", *original_report.alert_tokens)
+
         original = CycleSnapshot(
             label="original",
             analysis=original_report.to_dict(),

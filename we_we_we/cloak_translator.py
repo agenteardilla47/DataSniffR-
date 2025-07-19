@@ -34,6 +34,7 @@ _PLAYFUL_TO_CORP: Dict[str, str] = {
     r"\blamentwave\b": "Post-Incident Reflective Uplift Cycle (PIRUC)",
     r"\bsugar\-blown\b": "Poly-Mer Dextrose Sculpting (PMDS)",
     r"\bSADnetTM\b": "Sentient Appliance Distributed Network — Tier-Managed (SADN/TM)",
+    r"\bcontainment fiction\b": "Narrative Resilience Gateway (NRG) breach",
 }
 
 # build reverse map automatically (use first word of corp phrase)

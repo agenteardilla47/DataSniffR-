@@ -26,6 +26,7 @@ PAPIAMENTU_SUGAR_WORDS = {
 _RE_KEYSMASH = re.compile(r"[a-z]{3,}", re.IGNORECASE)
 _RE_REPEATING_CHAR = re.compile(r"(.)\1{2,}")
 _RE_REPEATING_PUNCT = re.compile(r"([!?\.])\1{2,}")
+_ALERT_THRESHOLD = 47  # repetitions that trigger containment-fiction alert
 
 
 @dataclass
@@ -39,6 +40,7 @@ class VibeReport:
     punct_overload: int
     sugar_hits: int
     palindrome_hits: int
+    alert_tokens: List[str]
 
     def glitch_score(self) -> float:
         """Rough composite glitch indicator (0-1)."""
@@ -57,6 +59,8 @@ class VibeReport:
         d = self.__dict__.copy()
         d["glitch_score"] = self.glitch_score()
         d["comfort_index"] = self.comfort_index()
+        if self.alert_tokens:
+            d["alert_tokens"] = self.alert_tokens
         return d
 
 
@@ -76,6 +80,10 @@ def analyze_text(text: str) -> VibeReport:
     sugar_hits = sum(1 for w in words if w in PAPIAMENTU_SUGAR_WORDS)
     palindrome_hits = sum(1 for w in words if len(w) > 2 and w == w[::-1])
 
+    # threshold alert detection
+    counts = Counter(words)
+    alert_tokens = [tok for tok, c in counts.items() if c >= _ALERT_THRESHOLD]
+
     return VibeReport(
         length=len(text),
         word_count=word_count,
@@ -84,6 +92,7 @@ def analyze_text(text: str) -> VibeReport:
         punct_overload=punct_overload,
         sugar_hits=sugar_hits,
         palindrome_hits=palindrome_hits,
+        alert_tokens=alert_tokens,
     )
 
 
