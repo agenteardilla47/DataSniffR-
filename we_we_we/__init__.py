@@ -26,3 +26,7 @@ from .plan_extractor import extract_to_palace as extract_plan  # noqa: E402
 __all__.extend(["QuantumBus", "consume_forever"])
 
 from .quantum_bus import QuantumBus, consume_forever  # noqa: E402
+__all__.extend(["forge_licence", "dump_prior_art"])
+
+from .license_forge import forge_licence  # noqa: E402
+from .prior_art_flood import dump_prior_art  # noqa: E402
