@@ -1,0 +1,19 @@
+# PocketFlow ecosystem definition for WE-WE-WE OS
+version: "1"
+ecosystem:
+  default:
+    skills:
+      - name: vibe
+        runtime: python
+        entrypoint: pocketflow_adapters/vibe.py:invoke
+      - name: sigil
+        runtime: python
+        entrypoint: pocketflow_adapters/sigil.py:invoke
+      - name: mesh
+        runtime: python
+        entrypoint: pocketflow_adapters/mesh.py:start
+    hooks:
+      on_startup:
+        - mesh.start
+      on_shutdown:
+        - mesh.stop

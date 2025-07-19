@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>WE-WE-WE Security Demo</title>
+  <style>
+    body{font-family:sans-serif;padding:20px;}
+    textarea{width:100%;height:150px;}
+  </style>
+</head>
+<body>
+  <h1>SecuritySigil Demo</h1>
+  <textarea id="input"></textarea>
+  <p>Thread ID: <input id="tid" style="width:300px" placeholder="auto"/></p>
+  <button id="scan">Scan</button>
+  <pre id="out"></pre>
+  <script>
+    document.getElementById('scan').onclick = async () => {
+      const txt = document.getElementById('input').value;
+      const tid = document.getElementById('tid').value || crypto.randomUUID();
+      const res = await window.sigil.scan(txt); // local scan only
+      document.getElementById('out').textContent = JSON.stringify(res,null,2) +
+        "\nthread:"+tid;
+    };
+  </script>
+</body>
+</html>
