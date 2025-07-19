@@ -2,6 +2,9 @@
 
 from smolagents import Tool
 
+# Pydantic payload schemas
+from we_we_we.models import VibeScanInput, SecurityInput
+
 from we_we_we import analyze_text
 from we_we_we import SecuritySigil
 from we_we_we.mesh import _digest_latest
@@ -24,8 +27,9 @@ class VibeSensorTool(Tool):
     }
     output_type: str = "object"
 
-    def forward(self, text: str):  # type: ignore[override]
-        return analyze_text(text).to_dict()
+    def forward(self, **kwargs):  # type: ignore[override]
+        data = VibeScanInput(**kwargs)
+        return analyze_text(data.text).to_dict()
 
 
 # ---------------------------------------------------------------------------
@@ -48,8 +52,9 @@ class SecuritySigilTool(Tool):
     }
     output_type: str = "object"
 
-    def forward(self, text: str):  # type: ignore[override]
-        return _shield.evaluate(text)
+    def forward(self, **kwargs):  # type: ignore[override]
+        data = SecurityInput(**kwargs)
+        return _shield.evaluate(data.text)
 
 
 # ---------------------------------------------------------------------------
