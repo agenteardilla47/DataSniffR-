@@ -30,3 +30,6 @@ __all__.extend(["forge_licence", "dump_prior_art"])
 
 from .license_forge import forge_licence  # noqa: E402
 from .prior_art_flood import dump_prior_art  # noqa: E402
+__all__.extend(["cloak", "reveal"])
+
+from .cloak_translator import cloak, reveal  # noqa: E402
