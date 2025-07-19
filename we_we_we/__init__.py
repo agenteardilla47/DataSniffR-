@@ -33,3 +33,6 @@ from .prior_art_flood import dump_prior_art  # noqa: E402
 __all__.extend(["cloak", "reveal"])
 
 from .cloak_translator import cloak, reveal  # noqa: E402
+__all__.append("SecuritySigil")
+
+from .security_sigil import SecuritySigil  # noqa: E402
