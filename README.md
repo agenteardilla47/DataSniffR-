@@ -23,3 +23,17 @@ This prints a JSON object with five snapshots (original → death → alive → 
 python -m we_we_we.log_ingestor "logs/**/*.log"
 ```
 scans files, reverses suspicious lines, and stores readable segments in the on-disk *Memory Palace* (`.we_memory.json`).
+
+## task_manager – remix tasks in real-time
+
+Add lines like
+```
+TASK: Merge the candy manifest with the frog glitch soundtrack.
+```
+into any ingested log (or directly via Python), then run:
+
+```bash
+python -m we_we_we.task_manager --once   # or --watch 5
+```
+
+Each task is remixed via the kernel and stored back in the Memory Palace under tag `remixed` for easy inspection.
